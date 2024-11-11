@@ -41,3 +41,20 @@ ultimo2([_|L],U) :- ultimo2(L,U).
 /*da igual el orden en ultimo*/
 ultimo3([_|L],U) :- ultimo3(L,U). 
 ultimo3([U],U).
+
+/* reverse(+L, -L1), donde L1 contiene los mismos elementos que L, pero en orden inverso. */
+revertir([], []).
+revertir([X|L], P) :- revertir(L, R), append(R, [X], P).
+
+/* prefijo(?P, +L), donde P es prefijo de la lista L. */
+prefijo(P, L) :- append(P, _, L).
+
+/* sufijo(?S, +L), donde S es sufijo de la lista L. */
+sufijo(S, L) :- append(_, S, L).
+
+/* sublista(?S, +L), donde S es sublista de L. */
+sublista([], _).
+sublista([X|Xs], L) :- prefijo(P, L), sufijo([X|Xs], P).
+
+/* pertenece(?X, +L), que es verdadero sii el elemento X se encuentra en la lista L. */
+pertenece(X, L) :- sublista([X], L).
