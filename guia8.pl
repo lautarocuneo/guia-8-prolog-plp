@@ -63,9 +63,47 @@ pertenece(X,L) :- append([X|_], _, L).
 /*asi si*/
 pertenece2(X,L) :- append(_, [X|_], L).
 
+
+borrar([], _, []).
+borrar([X|Xs], X, Ys) :- borrar(Xs, X, Ys).
+borrar([X|Xs], Y, [X|Ys]) :- X \= Y, borrar(Xs, Y, Ys).
+
+% sacarDuplicados(+L1, -L2), que saca todos los elementos duplicados de la lista L1.
+
+sacarDuplicados([], []).
+sacarDuplicados([X|L1], L2) :-
+    sacarDuplicados(L1, Ys),
+    borrar(Ys, X, Xs),
+    append([X], Xs, L2).
+
+
 %longitud
 longitud([], 0).
 longitud([_|T], N) :- longitud(T, N1), N is N1 + 1.
 
-
+%partir
 partir(N,L,L1,L2) :- append(L1,L2,L), longitud(L1, N).
+
+%insertar
+insertar(X, L, LX) :- append(P, S, L), append(P, [X|S], LX).
+
+%permutacion
+permutacion([], []).
+permutacion([X|Xs], Ys) :- permutacion(Xs, Zs), insertar(X, Zs, Ys).
+
+
+%parqueQueSuma
+parteQueSuma(_, 0, []).
+
+parteQueSuma([X|L], S, [X|P]) :-
+    S1 is S - X,               
+    S1 >= 0,                   
+    parteQueSuma(L, S1, P).    
+
+parteQueSuma([_|L], S, P) :-
+    parteQueSuma(L, S, P).
+
+%desde2 arreglando reversibilidad
+desde2(X, X).
+desde2(X, Y) :- var(Y), N is X+1, desde2(N, Y).
+desde2(X, Y) :- nonvar(Y), X < Y.
