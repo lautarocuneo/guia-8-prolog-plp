@@ -57,4 +57,8 @@ sublista([], _).
 sublista([X|Xs], L) :- prefijo(P, L), sufijo([X|Xs], P).
 
 /* pertenece(?X, +L), que es verdadero sii el elemento X se encuentra en la lista L. */
-pertenece(X, L) :- sublista([X], L).
+/*asi no anda*/
+pertenece(X,L) :- append([X|_], _, L). 
+
+/*asi si*/
+pertenece2(X,L) :- append(_, [X|_], L).
