@@ -62,3 +62,10 @@ pertenece(X,L) :- append([X|_], _, L).
 
 /*asi si*/
 pertenece2(X,L) :- append(_, [X|_], L).
+
+%longitud
+longitud([], 0).
+longitud([_|T], N) :- longitud(T, N1), N is N1 + 1.
+
+
+partir(N,L,L1,L2) :- append(L1,L2,L), longitud(L1, N).
