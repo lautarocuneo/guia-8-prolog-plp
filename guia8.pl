@@ -117,7 +117,7 @@ intercalar([X|L1], [Y|L2], [X,Y|L3]) :- intercalar(L1, L2, L3).
 
 
 %arbol
-vacío(nil).
+vacio(nil).
 
 raiz(bin(_, V, _), V).
 
@@ -126,3 +126,9 @@ altura(bin(I, _, D), A) :- altura(I, AI), altura(D, AD), A is 1+max(AI, AD).
 
 cantidadDeNodos(nil, 0).
 cantidadDeNodos(bin(I, _, D), N) :- cantidadDeNodos(I, NI), cantidadDeNodos(D, ND), N is 1+NI+ND.
+
+
+%coprimos(-X, -Y)
+coprimos(X, Y) :- desde2(1, Z), between(1, Z, X), Y is Z - X, 1 is gcd(X, Y).
+
+
